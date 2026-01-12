@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdf6px0sx1owa"]
+
+[ext_resource type="Script" uid="uid://cejw8erel2vox" path="res://scripts/player.gd" id="1_3vyb7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u8vuu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8vuu"]
+albedo_color = Color(0.2800378, 0.49566537, 1, 1)
+roughness = 0.42
+emission_enabled = true
+emission = Color(0.19921005, 0.42818522, 1, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_u8vuu"]
+text = "420"
+pixel_size = 0.05
+depth = 0.06
+
+[node name="Player" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_u8vuu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_u8vuu")
+mesh = SubResource("TextMesh_u8vuu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.97633755, 0.21625218, 0, -0.21625218, 0.97633755, 0, 2.4332163, 3.1935668)
