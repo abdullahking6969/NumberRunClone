@@ -34,3 +34,5 @@ size = Vector3(5, 0.2, 500)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4287423, 0)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
