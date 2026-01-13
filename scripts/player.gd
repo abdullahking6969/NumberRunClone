@@ -22,6 +22,10 @@ func _ready() -> void:
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
 	axis_lock_angular_z = true
+	if text_mesh and text_mesh.mesh:
+		var text_mesh_instance := text_mesh.mesh as TextMesh
+		if text_mesh_instance:
+			text_mesh_instance.text = "1"
 
 func _physics_process(delta: float) -> void:
 	# ----- Forward movement -----

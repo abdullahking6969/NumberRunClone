@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://orjg4tlj67ef"]
+
+[ext_resource type="Script" uid="uid://dlu8v622ch8ef" path="res://scripts/add_number_obs.gd" id="1_omqfb"]
+[ext_resource type="Texture2D" uid="uid://y2gvu4k75bcm" path="res://assets/99f3faed-cc26-42a9-999b-d248ca481476.png" id="1_ph2re"]
+[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="2_h2eki"]
+
+[sub_resource type="TextMesh" id="TextMesh_omqfb"]
+text = "3x"
+font_size = 80
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ph2re"]
+size = Vector3(1.7251129, 1.443222, 0.34155273)
+
+[node name="AddNumberObs" type="Area3D"]
+collision_mask = 5
+script = ExtResource("1_omqfb")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0, 0.025, 0, 0, 0)
+texture = ExtResource("1_ph2re")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_h2eki")
+mesh = SubResource("TextMesh_omqfb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03150654, 0.00022125244, 0.02406764)
+shape = SubResource("BoxShape3D_ph2re")
