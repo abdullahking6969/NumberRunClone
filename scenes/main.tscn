@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://d2wx0skkw2287"]
+[gd_scene load_steps=9 format=3 uid="uid://d2wx0skkw2287"]
 
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="5_tbgi4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -53,24 +55,26 @@ value = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -49.600945)
 value = 4
 
-[node name="PickableNumber4" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.234169, 0.45480943, -105.04741)
+[node name="NumberObs" type="Node3D" parent="."]
 
-[node name="PickableNumber5" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0794296, 0.45480943, -152.15448)
+[node name="AddNumberObs" parent="NumberObs" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80169916, -32.098503)
 value = 7
 
-[node name="PickableNumber6" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0794296, 0.45480943, -217.52898)
+[node name="AddNumberObs2" parent="NumberObs" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 0.80169916, -48.87815)
+value = 20
+number_type = "subtract"
+
+[node name="AddNumberObs3" parent="NumberObs" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 0.80169916, -48.87815)
+value = 90
+
+[node name="AddNumberObs4" parent="NumberObs" instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19303489, 0.80169916, -77.868034)
 value = 3
+number_type = "multiply"
 
-[node name="PickableNumber7" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1895905, 0.45480943, -237.71872)
-value = 8
-
-[node name="PickableNumber8" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1895905, 0.45480943, -298.39557)
-value = 2
-
-[node name="PickableNumber9" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.12648, 0.45480943, -332.46103)
+[node name="FinalBoss" parent="." instance=ExtResource("5_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6361399, -357.35144)
+player_path = NodePath("../Player")

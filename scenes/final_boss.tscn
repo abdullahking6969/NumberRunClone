@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://cmt3d0eecwvu3"]
+
+[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="1_gagl1"]
+[ext_resource type="Script" uid="uid://co06csova7fdc" path="res://scripts/final_boss.gd" id="1_uc5mt"]
+
+[sub_resource type="TextMesh" id="TextMesh_i5tas"]
+text = "BOSS"
+font_size = 91
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uc5mt"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.43
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_gagl1"]
+text = "5000"
+font_size = 91
+
+[sub_resource type="Gradient" id="Gradient_i5tas"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gagl1"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uc5mt"]
+noise = SubResource("FastNoiseLite_gagl1")
+color_ramp = SubResource("Gradient_i5tas")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gagl1"]
+size = Vector3(2.8353882, 2.713379, 1.1062164)
+
+[node name="FinalBoss" type="Area3D"]
+collision_mask = 5
+script = ExtResource("1_uc5mt")
+
+[node name="Oh_)" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.83273673, 0)
+material_override = ExtResource("1_gagl1")
+mesh = SubResource("TextMesh_i5tas")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29613107, 0)
+material_override = SubResource("StandardMaterial3D_uc5mt")
+mesh = SubResource("TextMesh_gagl1")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, -0.015899777, -0.007347703, 0.003000021)
+texture = SubResource("NoiseTexture2D_uc5mt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.013519287, 0.2097168, 0.37055206)
+shape = SubResource("BoxShape3D_gagl1")

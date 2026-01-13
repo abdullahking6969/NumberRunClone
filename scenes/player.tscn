@@ -17,7 +17,7 @@ text = "1"
 pixel_size = 0.05
 depth = 0.1
 
-[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("text_mesh", "coin_sfx")]
+[node name="player" type="RigidBody3D" node_paths=PackedStringArray("text_mesh", "coin_sfx")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_3vyb7")
