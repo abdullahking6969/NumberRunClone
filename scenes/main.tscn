@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2wx0skkw2287"]
+[gd_scene load_steps=7 format=3 uid="uid://d2wx0skkw2287"]
 
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="3_sugp2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -22,12 +23,12 @@ script = ExtResource("1_0wfyh")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301272, 0.25000006, 0.43020663, -0.39051133, 0.81389385, -0.2547986, 0.8124044, 0.5244777, 0, 0, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.43020663, -0.3905113, 0.81389385, -0.2547986, 0.8124044, 0.5244777, 0, 0, 0)
 shadow_enabled = true
 shadow_opacity = 0.4
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -229.40118)
 use_collision = true
 collision_mask = 7
@@ -38,3 +39,38 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4287423, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.99845827, 0.055507835, 0, -0.055507835, 0.99845827, 0, 3.5231118, 5.106849)
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="PickableNumber" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8460555, 0.45480943, -14.96097)
+
+[node name="PickableNumber2" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -20.310947)
+value = 2
+
+[node name="PickableNumber3" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -49.600945)
+value = 4
+
+[node name="PickableNumber4" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.234169, 0.45480943, -105.04741)
+
+[node name="PickableNumber5" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0794296, 0.45480943, -152.15448)
+value = 7
+
+[node name="PickableNumber6" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0794296, 0.45480943, -217.52898)
+value = 3
+
+[node name="PickableNumber7" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1895905, 0.45480943, -237.71872)
+value = 8
+
+[node name="PickableNumber8" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1895905, 0.45480943, -298.39557)
+value = 2
+
+[node name="PickableNumber9" parent="Coins" instance=ExtResource("3_sugp2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.12648, 0.45480943, -332.46103)
