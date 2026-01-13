@@ -1,23 +1,53 @@
 extends RigidBody3D
 
-const FORWARD_SPEED := 20.0
-const SIDE_SPEED := 25.0
+@export var forward_speed := 15.0
 
+@export var side_speed := 30.0
+@export var acceleration := 12.0
+
+@export var min_x := -4.0
+@export var max_x := 4.0
+@export var boundary_force := 40.0  # soft push back
+
+@export var drag_sensitivity := 0.015
+@export var text_mesh: MeshInstance3D
+@export var coin_sfx: AudioStreamPlayer
+
+var current_number: int = 1
 var dragging := false
 var last_touch_x := 0.0
+var target_x_velocity := 0.0
 
 func _ready() -> void:
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
 	axis_lock_angular_z = true
 
-func _physics_process(_delta: float) -> void:
-	# Constant forward movement
-	apply_central_force(Vector3(0, 0, -FORWARD_SPEED))
+func _physics_process(delta: float) -> void:
+	# ----- Forward movement -----
+	apply_central_force(Vector3(0, 0, -forward_speed))
 
-	# Stop side movement when not dragging
-	if not dragging:
-		linear_velocity.x = 0
+	# ----- Smooth acceleration -----
+	linear_velocity.x = lerp(linear_velocity.x, target_x_velocity, acceleration * delta)
+
+	# ----- Hard boundary guard (guaranteed no falling) -----
+	if global_position.x <= min_x:
+		linear_velocity.x = max(0, linear_velocity.x)
+		target_x_velocity = max(0, target_x_velocity)
+	elif global_position.x >= max_x:
+		linear_velocity.x = min(0, linear_velocity.x)
+		target_x_velocity = min(0, target_x_velocity)
+
+	# ----- Soft boundary feel (for polish) -----
+	if global_position.x < min_x:
+		apply_central_force(Vector3(boundary_force, 0, 0))
+	elif global_position.x > max_x:
+		apply_central_force(Vector3(-boundary_force, 0, 0))
+
+	# ----- Clamp position as final safety net -----
+	var pos := global_position
+	pos.x = clamp(pos.x, min_x, max_x)
+	global_position = pos
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -26,10 +56,21 @@ func _input(event):
 			last_touch_x = event.position.x
 		else:
 			dragging = false
-			linear_velocity.x = 0   # hard stop on release
+			target_x_velocity = 0
 
 	if event is InputEventScreenDrag and dragging:
-		var delta_x = event.position.x - last_touch_x
+		var delta_x: float = event.position.x - last_touch_x
 		last_touch_x = event.position.x
 
-		linear_velocity.x = delta_x * 0.1 * SIDE_SPEED
+		target_x_velocity = delta_x * drag_sensitivity * side_speed
+
+func apply_number_change(value: int):
+	current_number += value
+	_update_text_mesh()
+	coin_sfx.playing = true
+
+func _update_text_mesh():
+	if text_mesh and text_mesh.mesh:
+		var text_mesh_instance := text_mesh.mesh as TextMesh
+		if text_mesh_instance:
+			text_mesh_instance.text = str(current_number)

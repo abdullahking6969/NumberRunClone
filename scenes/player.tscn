@@ -1,28 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdf6px0sx1owa"]
+[gd_scene load_steps=6 format=3 uid="uid://cdf6px0sx1owa"]
 
 [ext_resource type="Script" uid="uid://cejw8erel2vox" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="AudioStream" uid="uid://dfqxpg6n003qi" path="res://assets/sfx/mixkit-arcade-game-jump-coin-216.wav" id="2_g2els"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8vuu"]
+size = Vector3(1.6530762, 1, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u8vuu"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vyb7"]
 albedo_color = Color(0.2800378, 0.49566537, 1, 1)
 roughness = 0.42
 emission_enabled = true
 emission = Color(0.19921005, 0.42818522, 1, 1)
 
 [sub_resource type="TextMesh" id="TextMesh_u8vuu"]
-text = "420"
+text = "1"
 pixel_size = 0.05
 depth = 0.1
 
-[node name="Player" type="RigidBody3D"]
+[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("text_mesh", "coin_sfx")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_3vyb7")
+text_mesh = NodePath("MeshInstance3D")
+coin_sfx = NodePath("CoinCollected")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0052490234, 0, 0)
 shape = SubResource("BoxShape3D_u8vuu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_u8vuu")
+material_override = SubResource("StandardMaterial3D_3vyb7")
 mesh = SubResource("TextMesh_u8vuu")
+
+[node name="CoinCollected" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_g2els")

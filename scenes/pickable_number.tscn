@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://xlk8ijnhajpb"]
+
+[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="1_f6ude"]
+[ext_resource type="Script" uid="uid://cmln680yy1unu" path="res://scripts/pickable_number.gd" id="1_o2mr1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f6ude"]
+radius = 0.19904637
+
+[sub_resource type="TextMesh" id="TextMesh_7ovfm"]
+text = "1"
+font_size = 50
+
+[node name="PickableNumber" type="Area3D"]
+collision_mask = 7
+script = ExtResource("1_o2mr1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_f6ude")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_f6ude")
+mesh = SubResource("TextMesh_7ovfm")
