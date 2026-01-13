@@ -13,7 +13,7 @@ emission = Color(0.19921005, 0.42818522, 1, 1)
 [sub_resource type="TextMesh" id="TextMesh_u8vuu"]
 text = "420"
 pixel_size = 0.05
-depth = 0.06
+depth = 0.1
 
 [node name="Player" type="RigidBody3D"]
 collision_layer = 4
@@ -26,6 +26,3 @@ shape = SubResource("BoxShape3D_u8vuu")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_u8vuu")
 mesh = SubResource("TextMesh_u8vuu")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.97633755, 0.21625218, 0, -0.21625218, 0.97633755, 0, 2.4332163, 3.1935668)
