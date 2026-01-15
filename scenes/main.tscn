@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="3_sugp2"]
-[ext_resource type="Script" uid="uid://dlqinww8d6kw4" path="res://scripts/camera_3d.gd" id="3_tipki"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="6_tefeu"]
@@ -91,8 +91,11 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss")]
 script = ExtResource("1_0wfyh")
+camera_rig = NodePath("CameraRig")
+player = NodePath("Player")
+final_boss = NodePath("FinalBoss")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sugp2")

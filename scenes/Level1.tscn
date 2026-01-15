@@ -1,0 +1,247 @@
+[gd_scene load_steps=17 format=3 uid="uid://diw1pxaiwso2"]
+
+[ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_6ovph"]
+[ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_dw26h"]
+[ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="2_bwv4p"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_odhdn"]
+[ext_resource type="Texture2D" uid="uid://cltmfym6hw3rp" path="res://assets/Restart5.png" id="5_lrl65"]
+[ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="6_76388"]
+[ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="7_svatc"]
+[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="8_ecr63"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lrl65"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_76388"]
+sky_material = SubResource("ProceduralSkyMaterial_lrl65")
+
+[sub_resource type="Environment" id="Environment_svatc"]
+background_mode = 2
+sky = SubResource("Sky_76388")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76388"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svatc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecr63"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22352941, 0.22352941, 0.22352941, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n34uq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kbo48"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="Level1" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss")]
+script = ExtResource("1_dw26h")
+camera_rig = NodePath("CameraRig")
+player = NodePath("player")
+final_boss = NodePath("FinalBoss")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.44202983, -0.4293574, 0.7875671, -0.23368724, 0.7925606, 0.563239, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_svatc")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -235.36517)
+use_collision = true
+size = Vector3(6, 0.2, 500)
+
+[node name="player" parent="." instance=ExtResource("1_6ovph")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35293448, 0)
+min_x = -3.0
+max_x = 3.0
+
+[node name="FinalBoss" parent="." instance=ExtResource("2_bwv4p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25199115, -482)
+boss_number = 650
+player_path = NodePath("../player")
+
+[node name="CameraRig" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.99844074, 0.055821504, 0, -0.055821504, 0.99844074, 0, 3.5231118, 5.106849)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+script = ExtResource("3_odhdn")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gameoverpanel" type="Panel" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -254.0
+offset_right = 204.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="restartbutton" type="Button" parent="UI/Control/gameoverpanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = 77.00003
+offset_right = 166.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.417, 0.461)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_76388")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_svatc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ecr63")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_n34uq")
+theme_override_styles/focus = SubResource("StyleBoxFlat_kbo48")
+icon = ExtResource("5_lrl65")
+
+[node name="NumberObs" type="Node3D" parent="."]
+
+[node name="AddNumberObs" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.2503469, -115.0985)
+value = 2
+number_type = "multiply"
+
+[node name="AddNumberObs5" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.2503469, -115.0985)
+value = 35
+
+[node name="AddNumberObs6" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2503469, -129.09851)
+value = 5
+number_type = "multiply"
+
+[node name="AddNumberObs7" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1015341, 1.2503469, -139.09851)
+value = 10
+number_type = "subtract"
+
+[node name="AddNumberObs8" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2400746, 1.2503469, -139.09851)
+value = 60
+number_type = "subtract"
+
+[node name="AddNumberObs2" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 1.2480278, -48.87815)
+value = 20
+number_type = "subtract"
+
+[node name="AddNumberObs3" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 1.2239076, -48.87815)
+value = 90
+
+[node name="AddNumberObs4" parent="NumberObs" instance=ExtResource("6_76388")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19303489, 1.2618744, -77.868034)
+value = 3
+number_type = "multiply"
+
+[node name="Coins" type="Node3D" parent="."]
+
+[node name="PickableNumber" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8460555, 0.45480943, -14.96097)
+value = 3
+
+[node name="PickableNumber4" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15394449, 0.45480943, -120.96097)
+value = 3
+
+[node name="PickableNumber6" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8460555, 0.45480943, -120.96097)
+value = 3
+
+[node name="PickableNumber5" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1539445, 0.45480943, -120.96097)
+value = 3
+
+[node name="PickableNumber2" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -20.310947)
+value = 7
+
+[node name="PickableNumber3" parent="Coins" instance=ExtResource("7_svatc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3965764, 0.45480943, -55.88122)
+value = 5
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6063961, -138)
+use_collision = true
+size = Vector3(0.5, 1, 5)
+material = ExtResource("8_ecr63")
+
+[connection signal="pressed" from="UI/Control/gameoverpanel/restartbutton" to="." method="_on_restartbutton_pressed"]

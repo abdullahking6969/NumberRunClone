@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdf6px0sx1owa"]
+[gd_scene load_steps=10 format=3 uid="uid://cdf6px0sx1owa"]
 
 [ext_resource type="Script" uid="uid://cejw8erel2vox" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="AudioStream" uid="uid://dfqxpg6n003qi" path="res://assets/sfx/mixkit-arcade-game-jump-coin-216.wav" id="2_g2els"]
@@ -7,12 +7,6 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8vuu"]
 size = Vector3(1.6530762, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vyb7"]
-albedo_color = Color(0.2800378, 0.49566537, 1, 1)
-roughness = 0.42
-emission_enabled = true
-emission = Color(0.19921005, 0.42818522, 1, 1)
 
 [sub_resource type="TextMesh" id="TextMesh_u8vuu"]
 material = ExtResource("5_qlg0r")
@@ -94,7 +88,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0052490234, 0, 0)
 shape = SubResource("BoxShape3D_u8vuu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_3vyb7")
+material_override = ExtResource("5_qlg0r")
 mesh = SubResource("TextMesh_u8vuu")
 
 [node name="CoinCollected" type="AudioStreamPlayer" parent="."]
