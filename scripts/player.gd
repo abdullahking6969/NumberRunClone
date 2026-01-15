@@ -17,11 +17,17 @@ var current_number: int = 1
 var dragging := false
 var last_touch_x := 0.0
 var target_x_velocity := 0.0
+var is_dead := false
+
+@onready var ui: CanvasLayer = $"../UI"
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	Engine.time_scale = 1.0
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
 	axis_lock_angular_z = true
+	ui.hide()
 	if text_mesh and text_mesh.mesh:
 		var text_mesh_instance := text_mesh.mesh as TextMesh
 		if text_mesh_instance:
@@ -78,3 +84,48 @@ func _update_text_mesh():
 		var text_mesh_instance := text_mesh.mesh as TextMesh
 		if text_mesh_instance:
 			text_mesh_instance.text = str(current_number)
+
+func die():
+	if is_dead:
+		return
+	is_dead = true
+
+	# Stop movement
+	freeze = true
+	linear_velocity = Vector3.ZERO
+
+	# Disable collision
+	$CollisionShape3D.disabled = true
+
+	# Fake smash animation
+	_fake_smash()
+	Engine.time_scale = 0.8
+	await get_tree().create_timer(0.4).timeout
+	ui.show()
+
+func _fake_smash():
+	var mesh := $MeshInstance3D
+	if not mesh:
+		return
+
+	# Detach mesh so it doesn't fight player physics
+	mesh.reparent(get_parent())
+
+	# Random spin + fall
+	var tween := get_tree().create_tween()
+	tween.tween_property(mesh, "scale", Vector3.ZERO, 0.35)\
+		.set_trans(Tween.TRANS_BACK)\
+		.set_ease(Tween.EASE_IN)
+
+	tween.parallel().tween_property(
+		mesh,
+		"rotation",
+		mesh.rotation + Vector3(
+			randf_range(-2, 2),
+			randf_range(-2, 2),
+			randf_range(-2, 2)
+		),
+		0.35
+	)
+
+	tween.tween_callback(mesh.queue_free)

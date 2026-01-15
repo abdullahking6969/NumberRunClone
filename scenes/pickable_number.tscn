@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://xlk8ijnhajpb"]
+[gd_scene load_steps=6 format=3 uid="uid://xlk8ijnhajpb"]
 
 [ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="1_f6ude"]
 [ext_resource type="Script" uid="uid://cmln680yy1unu" path="res://scripts/pickable_number.gd" id="1_o2mr1"]
+[ext_resource type="FontFile" uid="uid://dx6hcauwmhuqp" path="res://assets/Milker.otf" id="3_fxxsc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f6ude"]
-radius = 0.19904637
+radius = 0.37920296
 
 [sub_resource type="TextMesh" id="TextMesh_7ovfm"]
 text = "1"
-font_size = 50
+font = ExtResource("3_fxxsc")
+font_size = 70
 
 [node name="PickableNumber" type="Area3D"]
 collision_mask = 7

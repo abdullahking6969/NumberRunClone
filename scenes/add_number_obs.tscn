@@ -1,12 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://orjg4tlj67ef"]
+[gd_scene load_steps=7 format=3 uid="uid://orjg4tlj67ef"]
 
 [ext_resource type="Script" uid="uid://dlu8v622ch8ef" path="res://scripts/add_number_obs.gd" id="1_omqfb"]
 [ext_resource type="Texture2D" uid="uid://y2gvu4k75bcm" path="res://assets/99f3faed-cc26-42a9-999b-d248ca481476.png" id="1_ph2re"]
-[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="2_h2eki"]
+[ext_resource type="FontFile" uid="uid://dx6hcauwmhuqp" path="res://assets/Milker.otf" id="3_omqfb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2eki"]
+shading_mode = 0
+stencil_flags = 2
+stencil_outline_thickness = 0.045
 
 [sub_resource type="TextMesh" id="TextMesh_omqfb"]
 text = "3x"
-font_size = 80
+font = ExtResource("3_omqfb")
+font_size = 100
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ph2re"]
 size = Vector3(1.7251129, 1.443222, 0.34155273)
@@ -16,11 +22,12 @@ collision_mask = 5
 script = ExtResource("1_omqfb")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-1.0927848e-09, -0.025, 0, 0.025, -1.0927848e-09, 0, 0, 0, 0.025, 0, 0, 0)
+transform = Transform3D(-1.7484555e-09, -0.04, 0, 0.04, -1.7484555e-09, 0, 0, 0, 0.04, 0, 0, 0)
 texture = ExtResource("1_ph2re")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = ExtResource("2_h2eki")
+material_override = SubResource("StandardMaterial3D_h2eki")
+cast_shadow = 0
 mesh = SubResource("TextMesh_omqfb")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

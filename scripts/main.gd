@@ -1,7 +1,19 @@
 extends Node3D
 
-@onready var camera_3d: Camera3D = $Camera3D
+@onready var camera_rig : Node3D = $CameraRig
 @onready var player: RigidBody3D = $Player
+@onready var final_boss: Area3D = $FinalBoss
 
 func _physics_process(_delta: float) -> void:
-	camera_3d.position.z = player.position.z + 6
+	camera_rig.position.z = player.position.z + 8
+	if player.is_dead == true:
+		var cam := get_viewport().get_camera_3d()
+		if cam and cam.has_method("add_shake"):
+			cam.add_shake(0.8)
+	if is_instance_valid(final_boss) and final_boss.is_dead:
+		var cam := get_viewport().get_camera_3d()
+		if cam and cam.has_method("add_shake"):
+			cam.add_shake(0.6)
+
+func _on_restartbutton_pressed() -> void:
+	get_tree().reload_current_scene()
