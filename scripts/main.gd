@@ -1,8 +1,8 @@
 extends Node3D
 
-@onready var camera_rig : Node3D = $CameraRig
-@onready var player: RigidBody3D = $Player
-@onready var final_boss: Area3D = $FinalBoss
+@export var camera_rig : Node3D
+@export var player: RigidBody3D
+@export var final_boss: Area3D
 
 func _physics_process(_delta: float) -> void:
 	camera_rig.position.z = player.position.z + 8
