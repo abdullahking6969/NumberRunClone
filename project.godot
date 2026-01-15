@@ -19,8 +19,12 @@ config/icon="res://extras/icon.svg"
 
 window/size/viewport_width=648
 window/size/viewport_height=1152
-window/size/mode=3
+window/stretch/mode="canvas_items"
 window/handheld/orientation=1
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/smash_the_mesh/plugin.cfg")
 
 [input_devices]
 
@@ -29,3 +33,4 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

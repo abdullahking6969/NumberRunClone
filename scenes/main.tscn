@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2wx0skkw2287"]
+[gd_scene load_steps=17 format=3 uid="uid://d2wx0skkw2287"]
 
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://dlqinww8d6kw4" path="res://scripts/camera_3d.gd" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="5_tbgi4"]
+[ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://cltmfym6hw3rp" path="res://assets/Restart5.png" id="7_o6xl0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -18,6 +21,75 @@ background_mode = 2
 sky = SubResource("Sky_0wfyh")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6xl0"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_85g3d"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22352941, 0.22352941, 0.22352941, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_choun"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ya4ey"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0wfyh")
@@ -37,10 +109,13 @@ collision_mask = 7
 size = Vector3(8, 0.2, 500)
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4287423, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3315872, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="CameraRig" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.99845827, 0.055507835, 0, -0.055507835, 0.99845827, 0, 3.5231118, 5.106849)
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig"]
+script = ExtResource("3_tipki")
 
 [node name="Coins" type="Node3D" parent="."]
 
@@ -52,29 +127,89 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -20.31
 value = 2
 
 [node name="PickableNumber3" parent="Coins" instance=ExtResource("3_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -49.600945)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3965764, 0.45480943, -55.88122)
 value = 4
 
 [node name="NumberObs" type="Node3D" parent="."]
 
 [node name="AddNumberObs" parent="NumberObs" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80169916, -32.098503)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2503469, -32.098503)
 value = 7
 
 [node name="AddNumberObs2" parent="NumberObs" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 0.80169916, -48.87815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 1.2480278, -48.87815)
 value = 20
 number_type = "subtract"
 
 [node name="AddNumberObs3" parent="NumberObs" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 0.80169916, -48.87815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 1.2239076, -48.87815)
 value = 90
 
 [node name="AddNumberObs4" parent="NumberObs" instance=ExtResource("4_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19303489, 0.80169916, -77.868034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19303489, 1.2618744, -77.868034)
 value = 3
 number_type = "multiply"
 
 [node name="FinalBoss" parent="." instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6361399, -357.35144)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41265917, -357.35144)
+boss_number = 100
 player_path = NodePath("../Player")
+
+[node name="CollisionShape3D" parent="FinalBoss" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.16617966, 0.10922241, 5.4186096)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="FinalBoss"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00090789795, -0.6111455, 12.699097)
+material_override = ExtResource("6_tefeu")
+size = Vector3(7.994217, 0.60302734, 1)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gameoverpanel" type="Panel" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -254.0
+offset_right = 204.0
+offset_bottom = 254.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="restartbutton" type="Button" parent="UI/Control/gameoverpanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = 77.00003
+offset_right = 166.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.417, 0.461)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.39215687, 0.39215687, 0.39215687, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6xl0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tipki")
+theme_override_styles/hover = SubResource("StyleBoxFlat_85g3d")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_choun")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ya4ey")
+icon = ExtResource("7_o6xl0")
+
+[connection signal="pressed" from="UI/Control/gameoverpanel/restartbutton" to="." method="_on_restartbutton_pressed"]
+
+[editable path="FinalBoss"]
