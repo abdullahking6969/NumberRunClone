@@ -1,24 +1,30 @@
-[gd_scene load_steps=17 format=3 uid="uid://diw1pxaiwso2"]
+[gd_scene load_steps=19 format=3 uid="uid://diw1pxaiwso2"]
 
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_6ovph"]
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_dw26h"]
 [ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="2_bwv4p"]
-[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_odhdn"]
+[ext_resource type="Material" uid="uid://bft0r4bsxgj7m" path="res://extras/ground.tres" id="2_n34uq"]
+[ext_resource type="Script" uid="uid://dlqinww8d6kw4" path="res://scripts/camera_3d.gd" id="3_odhdn"]
 [ext_resource type="Texture2D" uid="uid://cltmfym6hw3rp" path="res://assets/Restart5.png" id="5_lrl65"]
 [ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="6_76388"]
 [ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="7_svatc"]
 [ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="8_ecr63"]
+[ext_resource type="PackedScene" uid="uid://dx08fhe56egd3" path="res://scenes/fade.tscn" id="10_kbo48"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lrl65"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ecr63"]
+sky_top_color = Color(0.039838113, 0.49724293, 0.6276803, 1)
+sky_horizon_color = Color(0.1993441, 0.7176563, 0.88152313, 1)
+sky_curve = 0.36934358
+ground_bottom_color = Color(0.199943, 0.49214554, 0.40861636, 1)
+ground_horizon_color = Color(0.29817185, 0.7178346, 0.81986135, 1)
+ground_curve = 0.17753185
 
-[sub_resource type="Sky" id="Sky_76388"]
-sky_material = SubResource("ProceduralSkyMaterial_lrl65")
+[sub_resource type="Sky" id="Sky_kbo48"]
+sky_material = SubResource("ProceduralSkyMaterial_ecr63")
 
 [sub_resource type="Environment" id="Environment_svatc"]
 background_mode = 2
-sky = SubResource("Sky_76388")
+sky = SubResource("Sky_kbo48")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -91,23 +97,27 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[node name="Level1" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss")]
+[node name="Level1" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss", "fade")]
 script = ExtResource("1_dw26h")
 camera_rig = NodePath("CameraRig")
 player = NodePath("player")
 final_boss = NodePath("FinalBoss")
+fade = NodePath("Fade")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.8660254, -0.43301278, 0.24999999, 0.44202983, -0.4293574, 0.7875671, -0.23368724, 0.7925606, 0.563239, 0, 0, 0)
+transform = Transform3D(-0.8660254, -0.43301278, 0.25000006, 0.3289047, -0.116764545, 0.93711674, -0.37659237, 0.8937931, 0.24354091, 0, 0, 0)
 shadow_enabled = true
+shadow_opacity = 0.64
+shadow_blur = 2.286
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_svatc")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -235.36517)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -247.16107)
+material_override = ExtResource("2_n34uq")
 use_collision = true
-size = Vector3(6, 0.2, 500)
+size = Vector3(6, 0.2, 523.5918)
 
 [node name="player" parent="." instance=ExtResource("1_6ovph")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35293448, 0)
@@ -118,6 +128,12 @@ max_x = 3.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25199115, -482)
 boss_number = 650
 player_path = NodePath("../player")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="FinalBoss"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.015295029, -0.64674795, 7.3597717)
+use_collision = true
+size = Vector3(0.5, 1, 5.995949)
+material = ExtResource("8_ecr63")
 
 [node name="CameraRig" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.99844074, 0.055821504, 0, -0.055821504, 0.99844074, 0, 3.5231118, 5.106849)
@@ -175,40 +191,40 @@ icon = ExtResource("5_lrl65")
 [node name="NumberObs" type="Node3D" parent="."]
 
 [node name="AddNumberObs" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.2503469, -115.0985)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6820221, 1.2503469, -115.0985)
 value = 2
 number_type = "multiply"
 
 [node name="AddNumberObs5" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.2503469, -115.0985)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7207832, 1.2503469, -115.0985)
 value = 35
 
 [node name="AddNumberObs6" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2503469, -129.09851)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2503469, -222.62129)
 value = 5
 number_type = "multiply"
 
 [node name="AddNumberObs7" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1015341, 1.2503469, -139.09851)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5975993, 1.2503469, -340.55103)
 value = 10
 number_type = "subtract"
 
 [node name="AddNumberObs8" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2400746, 1.2503469, -139.09851)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8524346, 1.2503469, -340.55103)
 value = 60
 number_type = "subtract"
 
 [node name="AddNumberObs2" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 1.2480278, -48.87815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8800437, 1.2480278, -53.66384)
 value = 20
 number_type = "subtract"
 
 [node name="AddNumberObs3" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 1.2239076, -48.87815)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.389283, 1.2239076, -53.66384)
 value = 90
 
 [node name="AddNumberObs4" parent="NumberObs" instance=ExtResource("6_76388")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19303489, 1.2618744, -77.868034)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02686286, 1.2618744, -94.89268)
 value = 3
 number_type = "multiply"
 
@@ -219,15 +235,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8460555, 0.45480943, -14.9
 value = 3
 
 [node name="PickableNumber4" parent="Coins" instance=ExtResource("7_svatc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15394449, 0.45480943, -120.96097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15394449, 0.45480943, -162.83621)
 value = 3
 
 [node name="PickableNumber6" parent="Coins" instance=ExtResource("7_svatc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8460555, 0.45480943, -120.96097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8460555, 0.45480943, -162.83621)
 value = 3
 
 [node name="PickableNumber5" parent="Coins" instance=ExtResource("7_svatc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1539445, 0.45480943, -120.96097)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1539445, 0.45480943, -162.83621)
 value = 3
 
 [node name="PickableNumber2" parent="Coins" instance=ExtResource("7_svatc")]
@@ -235,13 +251,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4119339, 0.45480943, -20.31
 value = 7
 
 [node name="PickableNumber3" parent="Coins" instance=ExtResource("7_svatc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3965764, 0.45480943, -55.88122)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13070536, 0.45480943, -72.547806)
 value = 5
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6063961, -138)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.19381905, 0.6063961, -339.4525)
 use_collision = true
 size = Vector3(0.5, 1, 5)
 material = ExtResource("8_ecr63")
 
+[node name="Fade" parent="." instance=ExtResource("10_kbo48")]
+
 [connection signal="pressed" from="UI/Control/gameoverpanel/restartbutton" to="." method="_on_restartbutton_pressed"]
+
+[editable path="FinalBoss"]

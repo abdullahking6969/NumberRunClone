@@ -9,6 +9,7 @@ var player
 var is_dead := false
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var ui: CanvasLayer = $"../UI"
+@onready var fade: CanvasLayer = $"../Fade"
 
 func _ready():
 	Engine.time_scale = 1
@@ -39,7 +40,8 @@ func _on_body_entered(body: Node) -> void:
 			_fake_smash($MeshInstance3D)
 			$CollisionShape3D.disabled = true
 			await get_tree().create_timer(0.4).timeout
-			ui.show()
+			await fade.fade(1.0,1.0).finished
+			get_tree().change_scene_to_file("res://scenes/Level1.tscn")
 			queue_free()
 		else:
 			player.die()

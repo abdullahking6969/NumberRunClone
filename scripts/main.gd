@@ -3,6 +3,10 @@ extends Node3D
 @export var camera_rig : Node3D
 @export var player: RigidBody3D
 @export var final_boss: Area3D
+@export var fade : CanvasLayer
+
+func _ready() -> void:
+	fade.fade(0.0,1.0)
 
 func _physics_process(_delta: float) -> void:
 	camera_rig.position.z = player.position.z + 8

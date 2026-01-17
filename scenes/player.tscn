@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdf6px0sx1owa"]
+[gd_scene load_steps=17 format=3 uid="uid://cdf6px0sx1owa"]
 
 [ext_resource type="Script" uid="uid://cejw8erel2vox" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="AudioStream" uid="uid://dfqxpg6n003qi" path="res://assets/sfx/mixkit-arcade-game-jump-coin-216.wav" id="2_g2els"]
 [ext_resource type="FontFile" uid="uid://dx6hcauwmhuqp" path="res://assets/Milker.otf" id="2_qhqgy"]
 [ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://d0vidvhtkbjee" path="res://assets/touch_touching_touch_screen_touchpad.png" id="5_tuyoq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_u8vuu"]
 size = Vector3(1.6530762, 1, 1)
@@ -41,6 +42,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerUI/Control/TextureRect:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13.850006, 718)]
+}
 
 [sub_resource type="Animation" id="Animation_g2els"]
 resource_name = "die"
@@ -70,11 +83,97 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, -3.07, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_qlg0r"]
+resource_name = "click"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerUI/Control/TextureRect:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(13.850006, 718), Vector2(498.335, 718)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qhqgy"]
 _data = {
 &"RESET": SubResource("Animation_qhqgy"),
+&"click": SubResource("Animation_qlg0r"),
 &"die": SubResource("Animation_g2els")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlg0r"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tuyoq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjrip"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.22352941, 0.22352941, 0.22352941, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smehm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ur7pv"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
 
 [node name="player" type="RigidBody3D" node_paths=PackedStringArray("text_mesh", "coin_sfx")]
 collision_layer = 4
@@ -95,6 +194,53 @@ mesh = SubResource("TextMesh_u8vuu")
 stream = ExtResource("2_g2els")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
 libraries = {
 &"": SubResource("AnimationLibrary_qhqgy")
 }
+
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Button" type="Button" parent="PlayerUI"]
+process_mode = 3
+offset_left = -72.0
+offset_top = -46.0
+offset_right = 718.0
+offset_bottom = 1227.0
+mouse_filter = 1
+theme_override_styles/normal = SubResource("StyleBoxFlat_qlg0r")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_tuyoq")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fjrip")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_smehm")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ur7pv")
+
+[node name="Control" type="Control" parent="PlayerUI"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="PlayerUI/Control"]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -310.15
+offset_top = 142.0
+offset_right = -142.15005
+offset_bottom = 310.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_tuyoq")
+expand_mode = 1
+
+[connection signal="pressed" from="PlayerUI/Button" to="." method="_on_button_pressed"]

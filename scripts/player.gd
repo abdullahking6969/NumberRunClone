@@ -21,8 +21,12 @@ var is_dead := false
 
 @onready var ui: CanvasLayer = $"../UI"
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var player_ui: CanvasLayer = $PlayerUI
 
 func _ready() -> void:
+	get_tree().paused = true
+	player_ui.show()
+	animation_player.play("click")
 	Engine.time_scale = 1.0
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
@@ -129,3 +133,8 @@ func _fake_smash():
 	)
 
 	tween.tween_callback(mesh.queue_free)
+
+func _on_button_pressed() -> void:
+	get_tree().paused = false
+	animation_player.stop()
+	player_ui.hide()
