@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="Number Run Clone"
-run/main_scene="uid://d2wx0skkw2287"
+run/main_scene="uid://dmgp3mrsa5bld"
 config/features=PackedStringArray("4.5", "Mobile")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
 config/icon="res://extras/icon.svg"
 
 [display]

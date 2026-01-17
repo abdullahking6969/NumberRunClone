@@ -1,24 +1,30 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2wx0skkw2287"]
+[gd_scene load_steps=19 format=3 uid="uid://d2wx0skkw2287"]
 
 [ext_resource type="Script" uid="uid://drvjlins6kkrp" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://cdf6px0sx1owa" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Material" uid="uid://bft0r4bsxgj7m" path="res://extras/ground.tres" id="2_85g3d"]
 [ext_resource type="PackedScene" uid="uid://xlk8ijnhajpb" path="res://scenes/pickable_number.tscn" id="3_sugp2"]
-[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="3_tipki"]
+[ext_resource type="Script" uid="uid://dlqinww8d6kw4" path="res://scripts/camera_3d.gd" id="3_tipki"]
 [ext_resource type="PackedScene" uid="uid://orjg4tlj67ef" path="res://scenes/add_number_obs.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://cmt3d0eecwvu3" path="res://scenes/final_boss.tscn" id="5_tbgi4"]
 [ext_resource type="Material" uid="uid://d1knfmhb2fwlb" path="res://extras/blue.tres" id="6_tefeu"]
 [ext_resource type="Texture2D" uid="uid://cltmfym6hw3rp" path="res://assets/Restart5.png" id="7_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://dx08fhe56egd3" path="res://scenes/fade.tscn" id="10_choun"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o5qli"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tipki"]
+sky_top_color = Color(0.039838113, 0.49724293, 0.6276803, 1)
+sky_horizon_color = Color(0.1993441, 0.7176563, 0.88152313, 1)
+sky_curve = 0.36934358
+ground_bottom_color = Color(0.199943, 0.49214554, 0.40861636, 1)
+ground_horizon_color = Color(0.29817185, 0.7178346, 0.81986135, 1)
+ground_curve = 0.17753185
 
-[sub_resource type="Sky" id="Sky_0wfyh"]
-sky_material = SubResource("ProceduralSkyMaterial_o5qli")
+[sub_resource type="Sky" id="Sky_76388"]
+sky_material = SubResource("ProceduralSkyMaterial_tipki")
 
-[sub_resource type="Environment" id="Environment_sugp2"]
+[sub_resource type="Environment" id="Environment_85g3d"]
 background_mode = 2
-sky = SubResource("Sky_0wfyh")
+sky = SubResource("Sky_76388")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -91,22 +97,25 @@ expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
-[node name="Main" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss")]
+[node name="Main" type="Node3D" node_paths=PackedStringArray("camera_rig", "player", "final_boss", "fade")]
 script = ExtResource("1_0wfyh")
 camera_rig = NodePath("CameraRig")
 player = NodePath("Player")
 final_boss = NodePath("FinalBoss")
+fade = NodePath("Fade")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25000006, 0.3289047, -0.116764545, 0.93711674, -0.37659237, 0.8937931, 0.24354097, 0, 0, 0)
+shadow_enabled = true
+shadow_opacity = 0.64
+shadow_blur = 2.286
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sugp2")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
-transform = Transform3D(-0.8660254, -0.43301278, 0.25000003, 0.43020663, -0.3905113, 0.81389385, -0.2547986, 0.8124044, 0.5244777, 0, 0, 0)
-shadow_enabled = true
-shadow_opacity = 0.4
+environment = SubResource("Environment_85g3d")
 
 [node name="Ground" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -229.40118)
+material_override = ExtResource("2_85g3d")
 use_collision = true
 collision_mask = 7
 size = Vector3(8, 0.2, 500)
@@ -212,6 +221,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_85g3d")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_choun")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ya4ey")
 icon = ExtResource("7_o6xl0")
+
+[node name="Fade" parent="." instance=ExtResource("10_choun")]
 
 [connection signal="pressed" from="UI/Control/gameoverpanel/restartbutton" to="." method="_on_restartbutton_pressed"]
 

@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bft0r4bsxgj7m"]
+
+[ext_resource type="Texture2D" uid="uid://b4geqjtjtcrhg" path="res://assets/188810495-game-ground-texture-cartoon-surface-dirt-ground-layer-for-game-level-design-vector-illustration.jpg" id="1_4xp65"]
+
+[resource]
+albedo_texture = ExtResource("1_4xp65")
+metallic = 0.5
+uv1_scale = Vector3(0.355, 0.355, 0.355)
+uv1_triplanar = true
